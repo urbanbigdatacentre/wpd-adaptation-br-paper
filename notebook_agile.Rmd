@@ -1,0 +1,90 @@
+---
+title: "AGILE Reproducible Notebook"
+author: "Short-paper 'Citizen-generated data, a climate adaptation complement: A case study in Brazil'"
+date: "2025-02-11"
+output: html_document
+---
+
+This notebook provides guidance to reproduce the graphs included in the short-paper "Citizen-generated data, a climate adaptation complement: A case study in Brazil" submitted to AGILE 2025 in Dresden, Germany.
+
+```{r setup, include=FALSE}
+# Read libraries for analysis
+
+library(tidyverse)
+library(sf)
+library(ggplot2)
+
+# Read dataset
+
+df <- read.csv("df_agile")
+```
+
+```{r figure 2}
+# This is the code to generate figure 2 in the paper (percentage of urban risk areas vs. count of INMET stations per municipality)
+
+ggplot(df, aes(x = risk_areas_perc, y = n_stations)) +
+  geom_point(aes(color = bins_hist_floods), alpha = 0.7) +
+  scale_color_brewer(palette="Spectral") +
+  geom_text(aes(x = 2, y = 6, label = "Brasília (DF)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 48, y = 5.1, label = "Rio de Janeiro (RJ)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 16, y = 4, label = "Belo Horizonte (MG)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 60, y = 3.2, label = "Campos dos\nGoytacazes (RJ)"), 
+             hjust = 0, vjust = 0) +
+  labs(title = "Percentage of risk areas within urban areas vs. No. of INMET stations",
+       x = "Percentage of risk areas",
+       y = "Number of INMET stations",
+       color = "No. of Historical Flooding (2003 - 2015)") +
+  theme_classic() +
+  theme(legend.position = "bottom")
+```
+
+
+```{r figure 3}
+# Figure 3 (percentage of urban risk areas vs. count of Cemaden institutions per municipality)
+
+ggplot(df, aes(x = risk_areas_perc, y = n_cemaden_inst)) +
+  geom_point(aes(color = bins_hist_floods), alpha = 0.7) +
+  scale_color_brewer(palette="Spectral") +
+  geom_text(aes(x = 27, y = 41, label = "S. José dos Campos (SP)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 34, y = 18, label = "Jaboatão dos Guararapes (PE)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 67, y = 6, label = "Praia Grande (SP)"), 
+             hjust = 0, vjust = 0) +
+  labs(title = "Percentage of risk areas within urban areas vs. No. of Cemaden institutions per 
+       municipality",
+       x = "Percentage of risk areas",
+       y = "Number of Cemaden institutions",
+       color = "No. of Historical Flooding (2003 to 2015)") +
+  theme_classic() +
+  theme(legend.position = "bottom")
+```
+
+```{r figure 4}
+# Figure 4 (percentage of urban risk areas vs. number of WPD participants per municipality)
+
+ggplot(df, aes(x = risk_areas_perc, y = n_wpd_participants)) +
+  geom_point(aes(color = bins_hist_floods), alpha = 0.7) +
+  scale_color_brewer(palette="Spectral") +
+  geom_text(aes(x = 27, y = 57, label = "S. José dos Campos (SP)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 34, y = 26, label = "Jaboatão dos Guararapes (PE)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 5, y = 17, label = "Petrópolis (RJ)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 33, y = 17, label = "Florianópolis (SC)"), 
+             hjust = 0, vjust = 0) +
+  geom_text(aes(x = 2, y = 30, label = "Cuiabá (MT)"), 
+             hjust = 0, vjust = 0) +
+  labs(title = "Percentage of risk areas within urban areas vs. No. of WPD participants per 
+       municipality",
+       x = "Percentage of risk areas",
+       y = "Number of WPD participants",
+       color = "No. of Historical Flooding (2003 to 2015)") +
+  theme_classic() +
+  theme(legend.position = "bottom")
+```
+
